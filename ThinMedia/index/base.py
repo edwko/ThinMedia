@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, Text, JSON, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session, declarative_base
-import os, json, re
+import os
+import json
+import re
 from natsort import natsorted
 from rapidfuzz import process 
 
@@ -34,9 +36,9 @@ class Media(DECBASE):
 class Base:
     def __init__(self) -> None:
         self.engine = create_engine(
-                'sqlite:///' + os.path.join(
-                    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
-                    'data', 'media.db'))
+            'sqlite:///' + os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+                'data', 'media.db'))
         DECBASE.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
         self.sco = scoped_session(self.Session)
