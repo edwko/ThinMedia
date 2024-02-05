@@ -1,0 +1,7 @@
+{
+    "paths": [],
+    "indexer": "tmdb",
+    "img_s": 720,
+    "use_episode_img": true,
+    "tmdb_api_key": ""
+}

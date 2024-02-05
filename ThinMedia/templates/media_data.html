@@ -1,0 +1,84 @@
+{%for i in media.episodes%}
+
+{% set season_length = media.episodes[i]|length %}
+
+{% if i in media.file_map %}
+{% set found_length = media.file_map[i]|length %}
+{%else%}
+{% set found_length = 0 %}
+{%endif%}
+
+<details onclick="update_detail(this)" id="{{i}}"
+    style="padding: 4px; margin: auto; width: 80%; background-color: transparent; border: 4px solid #b3b3b32f; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);">
+
+    {%if media.media_type == "tv"%}
+    <summary style="text-align: center; background-color: transparent;">
+        <h3 style="margin-top: 0px; margin-bottom: 0px;">Season {{i}} [{{found_length}}/{{season_length}}]</h3>
+    </summary>
+    {%else%}
+    <summary style="text-align: center; background-color: transparent;">
+        <h3 style="margin-top: 0px; margin-bottom: 0px;">Movie [{{found_length}}/{{season_length}}]</h3>
+    </summary>
+    {%endif%}
+
+    {%for epnum in media.episodes[i]%}
+    {%set ep = media.episodes[i][epnum]%}
+
+    {% set at_watch_info = watch_info[i][epnum] %}
+
+    {%if at_watch_info["watched"]%}
+    {% set ep_watched = True%}
+    {%else%}
+    {% set ep_watched = False%}
+    {%endif%}
+
+    {%if ep_watched%}
+    <div style="background-color: rgba(90, 197, 90, 0.116); margin-bottom: 10px;" class="series-info">
+        {%else%}
+        <div style="margin-bottom: 10px;" class="series-info">
+            {%endif%}
+
+            <div class="series-image">
+                <img src="/images/{{encode_string(media.img_map['seasons'][i][epnum])}}" alt="Episode image">
+            </div>
+            <div class="series-details">
+                <h2 style="margin-top: 0px; margin-bottom: 0px;">{{ep['title']}}</h2>
+                {%if media.media_type == "tv"%}
+                <h4 style="margin-top: 2px; margin-bottom: 2px;">Season: {{ep['season']}} Episode: {{ep['episode']}}
+                </h4>
+                {%endif%}
+                {%set found = False%}
+
+                {% if found_length != 0 %}
+
+                {% if i in media.file_map %}
+                {% if epnum in media.file_map[i] %}
+                {%set found = True%}
+                {%endif%}
+                {%endif%}
+
+                {%endif%}
+
+                {%if found%}
+                <button onclick="fetch('/play?apikey={{user['api']}}&id={{media.id}}&season={{i}}&episode={{epnum}}')"
+                    style="margin-top: 10px; width: 100px;">Play</button>
+                {%else%}
+                <button style="background-color: transparent; color: white; margin-top: 10px; width: 100px;">No
+                    file</button>
+                {%endif%}
+
+                {%if ep_watched%}
+                <button style="margin-left: 10px; width: 200px;"
+                    onclick="watched('?id={{media.id}}&season={{i}}&episode={{epnum}}')">Remove from watched</button>
+                {%else%}
+                <button style="margin-left: 10px; width: 200px;"
+                    onclick="watched('?id={{media.id}}&season={{i}}&episode={{epnum}}')">Mark as watched</button>
+                {%endif%}
+
+            </div>
+        </div>
+
+        {%endfor%}
+</details>
+<br>
+{%endfor%}

@@ -1,0 +1,14 @@
+{%set media_filters = session.get("genres")%}
+{% if not media_filters %}
+{% set media_filters = [] %}
+{% endif %}
+
+{%for i in unique_genres%}
+{%if i in media_filters%}
+<button onclick="set_media_filter('{{encode_string(i)}}')"
+    style="color: rgb(0, 0, 0); font-weight: 600; border-color: #ffffff; background-color: #ffffff; margin-top: 10px; margin-left: 10px; width: 200px;">{{i}}</button>
+{%else%}
+<button onclick="set_media_filter('{{encode_string(i)}}')"
+    style="color: white; border-color: rgba(255, 255, 255, 0.295); background-color: transparent; font-weight: 500; margin-top: 10px; margin-left: 10px; width: 200px;">{{i}}</button>
+{%endif%}
+{%endfor%}

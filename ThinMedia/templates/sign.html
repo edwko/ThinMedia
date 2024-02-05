@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body>
+
+    <center>
+
+        <div class="centered-container">
+
+            {%if create_admin%}
+            <h2>Create Admin Account</h2>
+            <form action="/create-admin-account" method="POST">
+                <h3>Name:</h3>
+                <input required type="text" name="name" id="name">
+
+                <h3>Password:</h3>
+                <input required type="password" name="password" id="password">
+
+                <br>
+                <button type="submit" style="margin-top: 40px;">Create</button>
+            </form>
+            {%else%}
+            <h2>Sing In</h2>
+            <form action="/login" method="POST">
+                <h3>Name:</h3>
+                <input required type="text" name="name" id="name">
+
+                <h3>Password:</h3>
+                <input required type="password" name="password" id="password">
+
+                <br>
+                <button type="submit" style="margin-top: 40px;">Sign In</button>
+            </form>
+            {%endif%}
+        </div>
+
+    </center>
+
+</body>
+
+</html>

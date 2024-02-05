@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+  <title>Home</title>
+</head>
+
+<body>
+
+  {% include "top_bar.html" %}
+
+  <center>
+
+    <details>
+      <summary>
+        <h4 style="margin-bottom: 0px; margin-top: 0px;">Media Filters</h4>
+      </summary>
+
+      <h4 style="margin-top: 20px; margin-bottom: 0px;">Media type:</h4>
+      {% set selected_type = session.get("media_type") %}
+      {% if not selected_type %}
+      {% set selected_type = 0 %}
+      {% endif %}
+      <select style="margin-top: 20px; margin-bottom: 20px;" name="type" id="type" onchange="media_type(this.value)">
+        <option value="0" {% if selected_type|int==0 %}selected{% endif %}>All</option>
+        <option value="1" {% if selected_type|int==1 %}selected{% endif %}>Shows</option>
+        <option value="2" {% if selected_type|int==2 %}selected{% endif %}>Movies</option>
+      </select>
+
+      <h4 style="margin-top: 0px; margin-bottom: 20px;">Genres:</h4>
+
+      <div style="max-width: 90%; margin-bottom: 20px;" id="unique_genres">
+      </div>
+
+      <button style="margin-bottom: 20px;" onclick="clear_all_selected_genres()">Clear selected genres</button>
+
+    </details>
+
+    {%if update_search_on_input%}
+    <input placeholder="Search..." style="font-weight: 700; width: 40%;" type="text" id="search"
+      oninput="media_search(this)">
+    {%else%}
+    <input placeholder="Search..." style="font-weight: 700; width: 40%;" type="text" id="search"
+      onchange="media_search(this)">
+    {%endif%}
+
+  </center>
+
+  <div class="movie-container" id="media"> </div>
+
+  {% set max_pages = session.get("max_pages")%}
+  {% if max_pages == None %}
+  {% set max_pages = 0 %}
+  {% endif %}
+
+  {% set current_page = session.get("current_page", 0)%}
+
+  <div class="max-pages" style="margin-bottom: 60px; text-align: center;">
+    <form id="page_submit" action="/" method="POST">
+      <select name="max_pages" id="max_pages" onchange="document.getElementById('page_submit').submit();">
+        {% for i in range(0, max_pages+1) %}
+        {%if i == current_page%}
+        <option selected value="{{i}}">{{i+1}}</option>
+        {%else%}
+        <option value="{{i}}">{{i+1}}</option>
+        {%endif%}
+        {% endfor %}
+      </select>
+    </form>
+
+</body>
+<script src="{{ url_for('static', filename='home.js') }}"></script>
+
+</html>

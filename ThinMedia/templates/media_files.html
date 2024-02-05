@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+
+  <title> </title>
+</head>
+
+<style>
+  table {
+    width: 80%;
+    margin-left: 10%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #2c2c2e8a;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  th,
+  td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 0px solid #00000049;
+  }
+
+  th {
+    background-color: #5353539f;
+  }
+
+  tr:hover {
+    background-color: #2c2c2ec0;
+  }
+
+  .textarea-container {
+    width: 300px;
+  }
+</style>
+
+<body>
+
+  {% include "top_bar.html" %}
+
+
+  <h2 style="margin-top: 60px; text-align: center;">Title: {{media.title}}</h2>
+
+  <h3 style="text-align: center;">Base dir: {{media.files_base_folder}}</h3>
+  <h3 style="text-align: center;">Media files</h3>
+  <table>
+    <tr>
+      <th>File</th>
+      <th>Season</th>
+      <th>Episode</th>
+    </tr>
+    {% for i in media.file_map %}
+    {% for ep in media.file_map[i] %}
+    <tr>
+      <td>{{media.file_map[i][ep]}}</td>
+      <td>{{i}}</td>
+      <td>{{ep}}</td>
+    </tr>
+    {%endfor%}
+    {%endfor%}
+  </table>
+
+
+</html>

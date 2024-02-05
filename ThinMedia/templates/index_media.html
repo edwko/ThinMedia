@@ -1,0 +1,10 @@
+{% for i in data %}
+<div class="mainmt">
+    <div class="movie">
+        <a href="/media/{{encode_string(data[i].title)}}">
+            <img src="/images/{{encode_string(data[i].img_map['base'])}}" alt="Image not found.">
+        </a>
+    </div>
+    <h3 class="mt">{{data[i].title}}</h3>
+</div>
+{%endfor%}

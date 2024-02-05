@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title> </title>
+</head>
+
+<body>
+    {% include "top_bar.html" %}
+
+    <div style="text-align: left;" class="centered-container">
+        <h4>Account name: {{user["user"]}}</h4>
+        <h4>Role: {{user["role"]}}</h4>
+        <h4>API key: {{user["api"]}}</h4>
+        <button style="font-weight: 700; width: 300px;" onclick="fetchData()">Scan and index current media.</button>
+        <br>
+        <button style="margin-top: 20px; font-weight: 700; width: 300px;"
+            onclick="location.href='/index-media-awc'">Scan and index new media.</button>
+
+        <div style="margin-top: 30px; margin-bottom: 30px; text-align: center;" id="index-msg"></div>
+    </div>
+
+</body>
+
+<script>
+    function fetchData() {
+        var msg = "";
+        const source = new EventSource('/index-media');
+
+        source.onmessage = function (event) {
+            const data = event.data;
+
+            if (data == "done") {
+                msg = "Finished";
+
+                document.getElementById("index-msg").innerHTML = "<h4>" + msg + "</h4>";
+
+                source.close();
+            }
+            else {
+                msg = data + "<br>";
+                document.getElementById("index-msg").innerHTML = "<h4>" + msg + "</h4>";
+            }
+        };
+    }
+</script>
+
+</html>

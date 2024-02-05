@@ -1,0 +1,134 @@
+body {
+  background-color: #272729;
+  color: rgb(255, 255, 255);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  display: inline-block;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #afafaf;
+  color: #000000;
+  background-color: #afafaf;
+  border-radius: 5px;
+  transition: border 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background-color: #cacaca;
+  border: 2px solid #cacaca;
+  color: #000000;
+}
+
+button:active {
+  transform: scale(1.05);
+  color: #0000005e;
+}
+
+.centered-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.aln-div {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+input {
+  font-size: 16px;
+  padding: 10px;
+  border: 2px solid #737375;
+  border-radius: 5px;
+  outline: none;
+  color: #ffffff;
+  background-color: #38383a;
+  transition: border-color 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #c2c2c2;
+  box-shadow: 0 0 5px rgba(214, 214, 214, 0.2);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+tr:hover {
+  background-color: #f0f0f0;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #38383a;
+  border: 2px solid #737375;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 1rem;
+  width: 200px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+select:focus {
+  border-color: #c2c2c2;
+  box-shadow: 0 0 5px rgba(224, 224, 224, 0.2);
+}
+
+select option {
+  background-color: #38383a;
+}
+
+details {
+  border: 1px solid #dddddd00;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 8px rgba(119, 119, 119, 0.041);
+  overflow: hidden;
+  width: 60%;
+  background-color: #383838;
+}
+
+summary {
+  cursor: pointer;
+  outline: none;
+  padding: 16px;
+  background-color: #525252;
+  border-bottom: 1px solid #dddddd00;
+  border-radius: 8px 8px 0 0;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}

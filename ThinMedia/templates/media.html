@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='media.css') }}">
+
+  <title> </title>
+</head>
+
+<body>
+
+  {% include "top_bar.html" %}
+
+  <div style="margin-top: 40px;" class="movie-container">
+
+    <img src="/images/{{encode_string(media.img_map['base'])}}" alt="Background image" class="bg-image">
+
+    <table style="margin-top: 0px; background-color: transparent; box-shadow: 0 0 0;">
+      <tr style="background-color: transparent;">
+        <td style="width: 40%;">
+          <img style="border-radius: 10px; box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);" width="100%"
+            src="/images/{{encode_string(media.img_map['base'])}}">
+        </td>
+        <td style="width: 40px;">
+        </td>
+        <td style="text-align: left; ">
+          <h4>Year: {{media.media_data['year']}}</h4>
+          <h4>Type: {{media.media_data['type'].upper()}}</h4>
+          <h4>Genres: {% for g in media.media_data['genres']%} {{g}} {%endfor%} </h4>
+          <h4>{{media.media_data['info']}}</h4>
+          <button onclick="location.href='/media/edit/{{media.id}}'">Edit ID</button>
+          <button onclick="location.href='/media/files/{{media.id}}'">Files</button>
+        </td>
+      </tr>
+    </table>
+
+    <h1 style="margin-left: 12%; text-align: left; margin-top: 0px; margin-bottom: 40px;">{{media.title}}</h1>
+
+    <div id="media-data">
+
+    </div>
+
+    <br><br>
+
+    <script>
+
+      var details = {}
+      async function fetchText(url) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch data. Status: ${response.status}`);
+          }
+          return await response.text();
+        } catch (error) {
+          console.error("Error fetching data:", error.message);
+        }
+      }
+      function load_media() {
+        const url = "/media-data-html/{{title}}";
+        fetchText(url).then((data) => {
+          var media_div = document.getElementById("media-data");
+          media_div.innerHTML = data;
+          for (var i in details) {
+            console.log(i + " - " + details[i]);
+            document.getElementById(i).open = details[i];
+          }
+        });
+      }
+
+      function watched(info) {
+        var url = "/set-watched-web" + info;
+        fetchText(url).then((data) => {
+          load_media();
+        });
+      }
+
+      function update_detail(item) {
+        setTimeout(function () {
+          details[item.id] = item.open;
+          console.log(details);
+        }, 250);
+      }
+
+      function call_load_update() {
+        // fetch updates every 20 seconds
+        setInterval(load_media, 20000);
+      }
+
+      window.addEventListener("load", load_media);
+      window.addEventListener("load", call_load_update);
+
+    </script>
+
+</html>
