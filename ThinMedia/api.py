@@ -69,7 +69,10 @@ def download_media():
 
     if not any([db_id, season, episode]):
         return jsonify(RESPONSE.bad_request)
-    db_id, season, episode = int(db_id), str(season), str(episode)
+   
+    db_id = int(db_id)
+    season = str(season)
+    episode = str(episode)
 
     data = DB.get_media_by_id(db_id)
     if not data:
@@ -92,7 +95,12 @@ def set_watched():
 
     if not any([db_id, season, episode, value, api_key]):
         return jsonify(RESPONSE.bad_request)
-    db_id, value, season, episode, api_key = int(db_id), int(value), int(season), int(episode), str(api_key)
+    
+    db_id = int(db_id)
+    value = int(value)
+    season = int(season)
+    episode = int(episode)
+    api_key = str(api_key)
 
     user = user_manager.get_json_api(api_key)
     if not user:
@@ -115,7 +123,12 @@ def set_playback():
 
     if not any([db_id, season, episode, value, api_key]): 
         return jsonify(RESPONSE.bad_request)
-    db_id, value, season, episode, api_key = int(db_id), int(value), int(season), int(episode), str(api_key)
+
+    db_id = int(db_id)
+    value = int(value)
+    season = int(season)
+    episode = int(episode)
+    api_key = str(api_key)
 
     user = user_manager.get_json_api(api_key)
     if not user: 
