@@ -106,7 +106,7 @@ class Indexer:
         all_files = self.get_all_file_paths(path)
         return {self.get_base_folder(f, path): path for f in all_files}
 
-    def _map_file_guess(file: str, is_key_int: bool):
+    def _map_file_guess(self, file: str, is_key_int: bool):
         file_data = guessit(os.path.basename(file))
         if "season" not in file_data or "episode" not in file_data: 
             return "", ""
