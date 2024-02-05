@@ -46,8 +46,7 @@ This requires MPV with libmpv to be installed on your system.
 1. Navigate to the `gui-desktop-player-cpp` folder.
 2. Make sure you have the required libraries installed as specified in the `CMakeLists.txt` file.
 3. Use `cmake` to compile the source code. 
-4. Move the `fonts` folder into your build directory.
-5. Run the player application.
+4. Run the player application.
 
 ## No GUI script:
 1. Navigate to the `no-gui-desktop-player-python` folder.
