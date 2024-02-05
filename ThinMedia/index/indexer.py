@@ -1,11 +1,12 @@
 from index.tmdb import TMDB
 from index.base import DB
 from index.log import LOG
-import glob
 from guessit import guessit
 from rapidfuzz import process, fuzz
-import os, json
-import threading 
+import os
+import json
+import threading
+import glob
 
 class Indexer:
     def __init__(self) -> None:
