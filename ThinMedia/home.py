@@ -196,11 +196,13 @@ def index_media_awc():
             if matches:
                 mapped = {}
                 for i in matches:
-                    id, id_type = None, None
+                    id = None
+                    id_type = None
                     custom_id = request.form.get(i)
                     custom_id_type = request.form.get(f"media_type-{i}")
                     if custom_id and custom_id_type:
-                        id, id_type = str(custom_id).strip(), str(custom_id_type)
+                        id = str(custom_id).strip()
+                        id_type = str(custom_id_type)
 
                     mapped[i] = {"data": matches[i], "id": id, "id_type": id_type}
                 
