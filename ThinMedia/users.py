@@ -70,7 +70,8 @@ class Users:
             name = name, 
             password = sha512(password.encode("utf-8")).hexdigest().lower(),
             api = self.create_api_key(),
-            role = role, mapped = {}
+            role = role, 
+            mapped = {}
         )
 
         with self.sco() as session:
@@ -141,9 +142,13 @@ class WatchInfoManager:
     def create_default_watch_info(self, username: str, title: str, season: int, episode: int) -> None:
         with self.sco() as session:
             session.add(WatchInfo(
-                username = username, last_watched = 0,
-                title = title, season = season, episode = episode,
-                watched = False, playback = 0))
+                username = username, 
+                last_watched = 0,
+                title = title, 
+                season = season, 
+                episode = episode,
+                watched = False, 
+                playback = 0))
             session.commit()
 
     def init_media_history(self, username: str, episodes: dict, title: str):
